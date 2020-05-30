@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Models",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.DAL", "EmployeeManagement.DAL\EmployeeManagement.DAL.csproj", "{EF921721-FA54-46EB-A9AE-B68CC2CA2046}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.BAL", "EmployeeManagement.BAL\EmployeeManagement.BAL.csproj", "{0B3CF3BF-E7E3-4978-BE52-7A5863E0790A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{EF921721-FA54-46EB-A9AE-B68CC2CA2046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF921721-FA54-46EB-A9AE-B68CC2CA2046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF921721-FA54-46EB-A9AE-B68CC2CA2046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B3CF3BF-E7E3-4978-BE52-7A5863E0790A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B3CF3BF-E7E3-4978-BE52-7A5863E0790A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B3CF3BF-E7E3-4978-BE52-7A5863E0790A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B3CF3BF-E7E3-4978-BE52-7A5863E0790A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
