@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{335aa9c2-442b-41d7-922c-60d0c5f3e15b}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql120DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -56,5 +56,21 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="dbo" />
+    <Folder Include="dbo\Stored Procedures" />
+    <Folder Include="dbo\Tables" />
+    <Folder Include="dbo\Views" />
+    <Folder Include="PublishLocations" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Stored Procedures\sp_DeleteEmployee.sql" />
+    <Build Include="dbo\Stored Procedures\sp_GetAllEmployees.sql" />
+    <Build Include="dbo\Stored Procedures\sp_GetEmployeeById.sql" />
+    <Build Include="dbo\Stored Procedures\sp_InsertEmployee.sql" />
+    <Build Include="dbo\Stored Procedures\sp_UpdateEmployee.sql" />
+    <Build Include="dbo\Tables\Employee.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PublishLocations\EmployeeManagement.DATA.publish.xml" />
   </ItemGroup>
 </Project>
