@@ -20,6 +20,7 @@ namespace EmployeeManagement.API.Controllers
         }
         
         [HttpGet]
+        [Route("/GetEmployees")]
         public async Task<IActionResult> GetEmployeesAsync()
         {
             try
@@ -39,6 +40,7 @@ namespace EmployeeManagement.API.Controllers
 
 
         [HttpGet]
+        [Route("/GetEmployee/{id}")]
         public async Task<IActionResult> GetEmployeeByIdAsync(int id)
         {
             try
@@ -57,7 +59,7 @@ namespace EmployeeManagement.API.Controllers
         }
 
         [HttpPost]
-
+        [Route("/CreateEmployee")]
         public async Task<IActionResult> CreateEmployeeAsync(Employee employee)
         {
             try
@@ -75,7 +77,8 @@ namespace EmployeeManagement.API.Controllers
         }
 
         // PUT: api/Employee/5
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("/UpdateEmployee/{id}")]
         public async Task<IActionResult> UpdateEmployeeAsync(int id, [FromBody] Employee employee)
         {
             try
@@ -104,7 +107,8 @@ namespace EmployeeManagement.API.Controllers
         }
 
         // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("/DeleteEmployee/{id}")]
         public async Task<IActionResult> DeleteEmployeeAsync(int id)
         {
             try
