@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +12,7 @@ namespace EmployeeManagement.API.Controllers
         [Route("/")]
         public ContentResult  GetSwagger()
         {
-           string baseUrl= HttpContext.Request.GetDisplayUrl();
+            string baseUrl= HttpContext.Request.GetDisplayUrl();
             string swaggerUrl = baseUrl + "swagger/index.html"; 
 
             string link="<h2><a href='"+swaggerUrl+"'>Go to Swagger</a></h2>";
