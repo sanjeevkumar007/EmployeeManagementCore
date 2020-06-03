@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
+    </environment>
+
+
+
+</head>
+<body style="background:#ef66a1">
+
+    <div>
+       
+
+        @{
+            await Html.RenderPartialAsync("_NavigationPartial");
+        }
+
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

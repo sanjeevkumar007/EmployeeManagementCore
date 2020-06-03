@@ -38,6 +38,8 @@ namespace EmployeeManagement.API
 
             services.AddControllers();
 
+            services.AddMvc();
+
             services.Configure<IISServerOptions>(options =>
             {
                 options.AutomaticAuthentication = false;
