@@ -16,17 +16,26 @@ namespace EmployeeManagement.DAL.DBAccess
 {
     public class SQLDataAccess : ISQLDataAccess
     {
+       
         public IConfiguration Configuration { get; }
 
+        public SQLDataAccess(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public string GetConnectionString(string name)
         {
             //AppConfiguration configuration = new AppConfiguration();
-            var conStr = ConnectionConfiguration.ConnectionString;
+            //var conStr = ConnectionConfiguration.ConnectionString;
+            string conStr = Configuration.GetConnectionString("EmployeeConnectionString");
+
             return conStr;
         }
         public async Task<List<T>> LoadData<T,U>(string storedProcedure,U parameters,string connectionStringName)
         {
+            
+
             string connectionString = GetConnectionString(connectionStringName);
             using (IDbConnection connection=new SqlConnection(connectionString))
             {
@@ -103,6 +112,5 @@ namespace EmployeeManagement.DAL.DBAccess
             return result;
         }
 
-       
     }
 }
