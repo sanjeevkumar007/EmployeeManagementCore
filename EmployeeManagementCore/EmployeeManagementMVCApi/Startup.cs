@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using EmployeeManagementMVCApi.Data;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +9,11 @@ using Microsoft.Extensions.Hosting;
 using EmployeesManagement.BAL.Repository.EmployeeRepository;
 using EmployeesManagement.DAL;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System;
+using System.Collections.Generic;
 
 namespace EmployeeManagementMVCApi
 {
@@ -52,6 +51,27 @@ namespace EmployeeManagementMVCApi
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            //Authentication with Jwt Security
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "JwtBearer";
+                options.DefaultChallengeScheme = "JwtBearer";
+
+            })
+             .AddJwtBearer("JwtBearer", jwtBearerOptions =>
+                 {
+                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
+                     {
+                         ValidateIssuerSigningKey = true,
+                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MySecretKeyisSecretDoNotTELL ")),
+                         ValidateIssuer = false,
+                         ValidateAudience = false,
+                         ValidateLifetime = true,
+                         ClockSkew = TimeSpan.FromMinutes(5)
+
+                     };
+                 });
+
 
             services.Configure<IISServerOptions>(options =>
             {
@@ -60,9 +80,44 @@ namespace EmployeeManagementMVCApi
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddDataInfrastructure();
 
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Core Employee API", Version = "v1" });
+
+                c.AddSecurityDefinition(name: "Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authentication header using the bearer schema",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                //adding security configuration for swagger UI
+                var security = new OpenApiSecurityRequirement()
+                {
+
+                         {
+                                new OpenApiSecurityScheme
+                                {
+                                    Reference = new OpenApiReference
+                                    {
+                                        Type = ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                    },
+                                    Scheme = "EmployeeAuth2",
+                                    Name = "Bearer",
+                                    In = ParameterLocation.Header,
+
+                                },new List<string>()
+                           }
+
+
+                };
+
+                c.AddSecurityRequirement(security);
+
+
             });
 
 
@@ -92,13 +147,6 @@ namespace EmployeeManagementMVCApi
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
-            });
 
             app.UseSwagger();
             app.UseSwaggerUI(option =>
@@ -106,6 +154,14 @@ namespace EmployeeManagementMVCApi
                 option.SwaggerEndpoint("../swagger/v1/swagger.json", "Tracker API V1");
             }
             );
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+            });
         }
     }
 }
