@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using EmployeeManagement.Models.Employees;
 using EmployeesManagement.BAL.Repository.EmployeeRepository;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Extensions;
 
 namespace EmployeeManagementMVCApi.Controllers
 {
@@ -16,9 +19,12 @@ namespace EmployeeManagementMVCApi.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;
-        public EmployeesController(IEmployeeRepository employeeRepository)
+        private readonly ILogger<EmployeesController> _logger;
+
+        public EmployeesController(IEmployeeRepository employeeRepository,ILogger<EmployeesController> logger)
         {
             _employeeRepository = employeeRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -35,7 +41,8 @@ namespace EmployeeManagementMVCApi.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -46,7 +53,7 @@ namespace EmployeeManagementMVCApi.Controllers
         {
             try
             {
-
+              
                 var employee = await _employeeRepository.GetEmployeeAsync(id);
 
                 return Ok(employee);
@@ -54,11 +61,13 @@ namespace EmployeeManagementMVCApi.Controllers
             }
             catch (Exception ex)
             {
+               
+                _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
 
-                throw ex;
+                return StatusCode(500, ex.Message);
             }
         }
-
+                                                               
         [HttpPost]
         [Route("/CreateEmployee")]
         public async Task<IActionResult> CreateEmployeeAsync(Employee employee)
@@ -70,10 +79,13 @@ namespace EmployeeManagementMVCApi.Controllers
                 return Ok(result);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                
+                _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
+
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -100,10 +112,10 @@ namespace EmployeeManagementMVCApi.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -133,7 +145,9 @@ namespace EmployeeManagementMVCApi.Controllers
             catch (Exception ex)
             {
 
-                throw ex;
+                _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
+
+                return StatusCode(500, ex.Message);
             }
         }
     }
