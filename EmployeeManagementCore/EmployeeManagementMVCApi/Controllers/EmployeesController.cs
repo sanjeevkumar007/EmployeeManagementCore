@@ -132,13 +132,9 @@ namespace EmployeeManagementMVCApi.Controllers
                     return Ok(result[true]);
                 }
 
-                else if (result[false] == "No Record Found")
-                {
-                    return NotFound(result[false]);
-                }
                 else
                 {
-                    return new BadRequestResult();
+                    return NotFound(result[false]);
                 }
 
             }
