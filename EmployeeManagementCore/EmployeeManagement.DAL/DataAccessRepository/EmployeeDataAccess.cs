@@ -12,24 +12,19 @@ namespace EmployeeManagement.DAL.DataAccessRepository
 {
     public class EmployeeDataAccess : IEmployeeDataAccess
     {
-        //SQLDataAccess _sqlDataAccess;
+        
 
         private readonly ISQLDataAccess _sqlDataAccess;
-
-        string ConnectionStringSettings;
-
-        public  IConfiguration Configuration { get;  }
-
-        public EmployeeDataAccess(ISQLDataAccess sQLDataAccess,IConfiguration configuration)
+        public EmployeeDataAccess(ISQLDataAccess sQLDataAccess)
         {
-            Configuration = configuration;
+
             _sqlDataAccess = sQLDataAccess;
-            ConnectionStringSettings = Configuration.GetConnectionString("EmployeeConnectionString");
+
         }
         public async Task<List<Employee>> GetEmployees()
         {
             var parameter = new { };
-            var result = await _sqlDataAccess.LoadData<Employee, dynamic>("sp_GetAllEmployees", parameter, Configuration.GetConnectionString("EmployeeConnectionString"));
+            var result = await _sqlDataAccess.LoadData<Employee, dynamic>("sp_GetAllEmployees", parameter);
             return result;
         }
 
@@ -40,13 +35,13 @@ namespace EmployeeManagement.DAL.DataAccessRepository
             {
                 var parameter = new { employee = employeetoCreate };
 
-                result = await _sqlDataAccess.ExecuteData("sp_InsertEmployee", employeetoCreate, "EmployeeConnectionString");
+                result = await _sqlDataAccess.ExecuteData("sp_InsertEmployee", employeetoCreate);
 
             }
             catch (Exception)
             {
                 result = -1;
-            }            
+            }
             return result;
         }
 
@@ -65,7 +60,7 @@ namespace EmployeeManagement.DAL.DataAccessRepository
 
                 var parameters = new { Id = id };
 
-                result = await _sqlDataAccess.RemoveData("sp_DeleteEmployee", parameters, "EmployeeConnectionString");
+                result = await _sqlDataAccess.RemoveData("sp_DeleteEmployee", parameters);
 
             }
             catch (Exception)
@@ -84,7 +79,7 @@ namespace EmployeeManagement.DAL.DataAccessRepository
         public async Task<Employee> GetEmployeeAsync(int id)
         {
             var parameter = new { Id = id };
-            var result = await _sqlDataAccess.LoadData<Employee, dynamic>("sp_GetEmployeeById", parameter, "EmployeeConnectionString");
+            var result = await _sqlDataAccess.LoadData<Employee, dynamic>("sp_GetEmployeeById", parameter);
             return result.FirstOrDefault();
         }
 
@@ -94,21 +89,21 @@ namespace EmployeeManagement.DAL.DataAccessRepository
 
             try
             {
-               
+
                 var parameters = new
                 {
                     Id = id,
-                    FirstName = employeeToUpdate.FirstName,
-                    LastName = employeeToUpdate.LastName,
-                    EmailAddress = employeeToUpdate.EmailAddress,
-                    Gender = employeeToUpdate.Gender,
-                    Salary = employeeToUpdate.Salary,
-                    Department = employeeToUpdate.Department,
-                    Role = employeeToUpdate.Role,
+                    employeeToUpdate.FirstName,
+                    employeeToUpdate.LastName,
+                    employeeToUpdate.EmailAddress,
+                    employeeToUpdate.Gender,
+                    employeeToUpdate.Salary,
+                    employeeToUpdate.Department,
+                    employeeToUpdate.Role,
                     ModifiedDate = DateTime.Now,
                 };
 
-                result = await _sqlDataAccess.ExecuteData("sp_UpdateEmployee", parameters, "EmployeeConnectionString");
+                result = await _sqlDataAccess.ExecuteData("sp_UpdateEmployee", parameters);
 
             }
             catch (Exception)

@@ -16,15 +16,17 @@ namespace EmployeeManagement.DAL.DBAccess
 {
     public class SQLDataAccess : ISQLDataAccess
     {
-       
+
+        string conStr = string.Empty;
         public IConfiguration Configuration { get; }
 
         public SQLDataAccess(IConfiguration configuration)
         {
             Configuration = configuration;
+            conStr = Configuration.GetConnectionString("EmployeeConnectionString");
         }
 
-        public string GetConnectionString(string name)
+        public string GetConnectionString()
         {
             //AppConfiguration configuration = new AppConfiguration();
             //var conStr = ConnectionConfiguration.ConnectionString;
@@ -32,25 +34,25 @@ namespace EmployeeManagement.DAL.DBAccess
 
             return conStr;
         }
-        public async Task<List<T>> LoadData<T,U>(string storedProcedure,U parameters,string connectionStringName)
+        public async Task<List<T>> LoadData<T,U>(string storedProcedure,U parameters)
         {
             
 
-            string connectionString = GetConnectionString(connectionStringName);
-            using (IDbConnection connection=new SqlConnection(connectionString))
+            //string connectionString = GetConnectionString();
+            using (IDbConnection connection=new SqlConnection(conStr))
             {
                 var rows = await connection.QueryAsync<T>(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 return rows.ToList();
             }
         }
 
-        public async Task<int> ExecuteData<T>(string storedProcedure, T parameters, string connectionStringName)
+        public async Task<int> ExecuteData<T>(string storedProcedure, T parameters)
         {
             int result = 0;
             try
             {
-                string connectionString = GetConnectionString(connectionStringName);
-                using (IDbConnection _connection = new SqlConnection(connectionString))
+                string connectionString = GetConnectionString();
+                using (IDbConnection _connection = new SqlConnection(conStr))
                 {
                     result = await _connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 
@@ -64,14 +66,14 @@ namespace EmployeeManagement.DAL.DBAccess
             return result;
         }
 
-        public async Task<int> UpdateData<T>(string storedProcedure,T parameters,string connectionStringName)
+        public async Task<int> UpdateData<T>(string storedProcedure,T parameters)
         {
             int result = 0;
             try
             {
-                string connectionString = GetConnectionString(connectionStringName);
+                string connectionString = GetConnectionString();
 
-                using (IDbConnection _connection = new SqlConnection(connectionString))
+                using (IDbConnection _connection = new SqlConnection(conStr))
                 {
                      result = await _connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 
@@ -87,15 +89,15 @@ namespace EmployeeManagement.DAL.DBAccess
             return result;
         }
 
-        public async Task<int> RemoveData<T>(string storedProcedure, T parameters, string connectionStringName)
+        public async Task<int> RemoveData<T>(string storedProcedure, T parameters)
         {
             int result = 0;
             try
             {
 
-                string connectionString = GetConnectionString(connectionStringName);
+                string connectionString = GetConnectionString();
 
-                using (IDbConnection _connection = new SqlConnection(connectionString))
+                using (IDbConnection _connection = new SqlConnection(conStr))
                 {
                     result = await _connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
 

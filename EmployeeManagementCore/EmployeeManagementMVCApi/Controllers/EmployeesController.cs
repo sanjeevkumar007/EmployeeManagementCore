@@ -43,7 +43,8 @@ namespace EmployeeManagementMVCApi.Controllers
 
                 _logger.LogError($"The Path {ex.StackTrace} threw an exception {ex.Message}");
                 return StatusCode(500, ex.Message);
-            }
+                
+    }
         }
 
 
