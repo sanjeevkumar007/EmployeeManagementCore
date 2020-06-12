@@ -30,7 +30,7 @@ namespace EmployeeManagement.DAL.DataAccessRepository
 
         public async Task<int> CreateEmployeeAsync(Employee employeetoCreate)
         {
-            var result = 0;
+            int result;
             try
             {
                 var parameter = new { employee = employeetoCreate };
