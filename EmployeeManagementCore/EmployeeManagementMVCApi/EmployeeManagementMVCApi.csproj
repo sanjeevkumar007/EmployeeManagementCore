@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>aspnet-EmployeeManagementMVCApi-F60FA3E7-9CEC-4875-AACB-2698C7A54D36</UserSecretsId>
   </PropertyGroup>
 

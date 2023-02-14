@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.Models", "EmployeeManagement.Models\EmployeeManagement.Models.csproj", "{FF863BF1-7CFF-4AF3-81C7-4C743D0C5D60}"
 EndProject
@@ -13,7 +13,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EmployeeManagement.DATA", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagement.API", "EmployeeManagement.API\EmployeeManagement.API.csproj", "{C2BF4C80-9DB1-48C4-B849-52929C0BBC15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagementMVCApi", "EmployeeManagementMVCApi\EmployeeManagementMVCApi.csproj", "{4CF77D8A-D8B4-4BF5-9A37-402CC4B82979}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManagementMVCApi", "EmployeeManagementMVCApi\EmployeeManagementMVCApi.csproj", "{4CF77D8A-D8B4-4BF5-9A37-402CC4B82979}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EmployeeManagementCore.DBSQL", "EmployeeManagementCore.DBSQL\EmployeeManagementCore.DBSQL.sqlproj", "{CF08BE44-BB36-4497-B218-3C053BF4DB90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,12 @@ Global
 		{4CF77D8A-D8B4-4BF5-9A37-402CC4B82979}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CF77D8A-D8B4-4BF5-9A37-402CC4B82979}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CF77D8A-D8B4-4BF5-9A37-402CC4B82979}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF08BE44-BB36-4497-B218-3C053BF4DB90}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
